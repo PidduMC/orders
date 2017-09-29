@@ -27,7 +27,7 @@
           <br>
           <div class="danger-alert" v-html="error" />
           <br>
-          <v-btn class="cyan" @click="Login">Login</v-btn>
+          <v-btn class="cyan" @click="login">Login</v-btn>
         </div>
       </div>
     </v-flex>
@@ -54,7 +54,7 @@ export default {
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
         this.$router.push({
-          name: 'songs'
+          name: 'Hello'
         })
       } catch (error) {
         this.error = error.response.data.error

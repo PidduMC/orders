@@ -1,4 +1,6 @@
 //Model for User
+const Promise = require('bluebird')
+const bcrypt = Promise.promisifyAll(require('bcrypt-nodejs'))
 
 function hashPassword (user, options) {
   const SALT_FACTOR = 8
@@ -14,9 +16,14 @@ function hashPassword (user, options) {
     })
 }
 
-
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
+    _id: {
+      type: DataTypes.UUID,
+      unique: true,
+      defaultValue: DataTypes.UUIDV1,
+      primaryKey: true
+    },
     email: {
       type: DataTypes.STRING,
       unique: true
