@@ -15,7 +15,7 @@ module.exports = (app) => {
   app.get('/customers',
            CustomerController.index)
   app.post('/customers/create',
-            CustomerController.create)
+            CustomerController.post)/*
   app.delete('/customers/delete/:customerId',
-            CustomerController.remove)
+            CustomerController.remove)*/
 }

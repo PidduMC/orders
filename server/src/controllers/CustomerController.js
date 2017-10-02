@@ -3,23 +3,18 @@ const jwt = require('jsonwebtoken')
 const config = require('../config/config')
 
 
-
-
 module.exports = {
-  async index (req,res){
-    try{
-      const customers = await Customer.findAll().then(customers => {
-        console.log(customers)
-        const customersJson = customers.toJSON()
-        res.send(customers)
-    })
+  async index (req,res) {
+    try {
+      const customers = await Customer.findAll()
+      res.send(customers)
     } catch (err) {
       res.status(500).send({
         error: err
       })
     }
   },
-  async create (req, res) {
+  async post (req, res) {
     try {
       const customer = await Customer.create(req.body)
       const customerJson = customer.toJSON()
