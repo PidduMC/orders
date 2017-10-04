@@ -3,20 +3,20 @@
     <v-flex xs6 offset-xs3>
       <div class="white elevation-2">
         <v-toolbar flat dense class="cyan" dark>
-          <v-toolbar-title>Clienti</v-toolbar-title>
+          <v-toolbar-title>Ordini</v-toolbar-title>
         </v-toolbar>
         <div class="pl-4 pr-4 pt-3 pb-2">
           <v-data-table
             v-bind:headers="headers"
-            :items="customers"
+            :items="orders"
             hide-actions
             class="elevation-1"
           >
           <template slot="items" scope="props">
-            <td class="text-xs-left">{{props.item.customer_code}}</td>
-            <td class="text-xs-left"><router-link :to="{ name: 'customerdetail', params: {customerId: props.item._id }}">{{props.item.society_name}}</router-link></td>
-            <td class="text-xs-left">{{ props.item.telephone }}</td>
-            <td class="text-xs-left">{{ props.item.iva_cf }}</td>
+            <td class="text-xs-left">{{props.item.data}}</td>
+            <td class="text-xs-left"><router-link :to="{ name: 'orderdetail', params: {orderId: props.item._id }}">{{props.item._id}}</router-link></td>
+            <td class="text-xs-left">{{ props.item.customer_id }}</td>
+            <td class="text-xs-left">{{ props.item.item_id }}</td>
           </template>
         </v-data-table>
         <v-btn class="cyan" @click="create">Nuovo</v-btn>
@@ -27,34 +27,33 @@
 </template>
 
 <script>
-import CustomerService from '@/services/CustomerService'
+import orderService from '@/services/orderService'
 
 export default {
   data () {
     return {
       headers: [
-        { text: 'Codice Cliente', value: 'customer_code', align: 'left' },
+        { text: 'Data', value: 'date', align: 'left' },
+        { text: 'ID', value: '_id', align: 'left' },
         {
           text: 'Cliente',
           align: 'left',
           sortable: true,
-          value: 'society_name'
+          value: 'customer_id'
         },
-        { text: 'Telefono', value: 'telephone', align: 'left' },
-        { text: 'Iva/CF', value: 'iva_cf', align: 'left' }
+        { text: 'Item', value: 'item_id', align: 'left' }
       ],
-      customers: []
+      orders: []
     }
   },
   async mounted () {
-    this.customers = (await CustomerService.index()).data
+    this.orders = (await orderService.index()).data
   },
   methods: {
     async create () {
       try {
-        console.log('creating customer...')
         this.$router.push({
-          name: 'customercreate'
+          name: 'ordercreate'
         })
       } catch (error) {
         this.error = error.response.data.error

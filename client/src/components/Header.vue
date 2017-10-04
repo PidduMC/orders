@@ -5,9 +5,9 @@
         class="home"
         tag="span"
         :to="{
-          name: 'songs'
+          name: 'customers'
         }">
-        TabTracker
+        Main
       </router-link>
     </v-toolbar-title>
 
@@ -16,9 +16,20 @@
         flat
         dark
         :to="{
-          name: 'songs'
+          name: 'customers'
         }">
-        Browse
+        Clienti
+      </v-btn>
+    </v-toolbar-items>
+
+    <v-toolbar-items>
+      <v-btn
+        flat
+        dark
+        :to="{
+          name: 'orders'
+        }">
+        Ordini
       </v-btn>
     </v-toolbar-items>
 

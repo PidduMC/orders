@@ -1,4 +1,4 @@
-const {Customer} = require('../models')
+const {Order} = require('../models')
 const jwt = require('jsonwebtoken')
 const config = require('../config/config')
 
@@ -6,8 +6,8 @@ const config = require('../config/config')
 module.exports = {
   async index (req,res) {
     try {
-      const customers = await Customer.findAll()
-      res.send(customers)
+      const orders = await Order.findAll()
+      res.send(orders)
     } catch (err) {
       res.status(500).send({
         error: err
@@ -17,30 +17,30 @@ module.exports = {
   async post (req, res) {
     try {
       console.log(req.body)
-      const customer = await Customer.create(req.body)
-      res.send(customer)
+      const order = await Order.create(req.body)
+      res.send(order)
     } catch (err) {
       res.status(500).send({
-        error: 'Error while creating customer'
+        error: 'Error while creating order'
       })
     }
   },
 
   async get (req, res) {
     try {
-      const {customerId} = req.params
-      const customer = await Customer.findOne({
+      const {orderId} = req.params
+      const order = await order.findOne({
         where: {
-          _id: customerId
+          _id: orderId
         }
       })
-      if (!customer) {
+      if (!order) {
         return res.status(404).send({
-          error: "Cliente Non Trovato"
+          error: "ordine Non Trovato"
         })
       }
       else {
-        res.send(customer)
+        res.send(order)
       }
 
     } catch (err) {
@@ -52,37 +52,37 @@ module.exports = {
 
   async put (req, res) {
     try {
-      await Customer.update(req.body, {
+      await order.update(req.body, {
         where: {
-          _id: req.params.customerId
+          _id: req.params.orderId
         }
       })
       res.send(req.body)
     } catch (err) {
       res.status(500).send({
-        error: 'errore durante modifica cliente'
+        error: 'errore durante modifica ordine'
       })
     }
   },
 
   async remove (req, res) {
     try {
-      const customer = await Customer.findOne(req.body, {
+      const order = await order.findOne(req.body, {
         where: {
-          _id: req.params.customerId
+          _id: req.params.orderId
         }
       })
-      if (!customer){
+      if (!order){
         return res.status(403).send({
-          error: 'cannot remove customer'
+          error: 'cannot remove order'
         })
       }
-      await customer.destroy()
-      res.send(customer)
+      await order.destroy()
+      res.send(order)
     } catch (err) {
       console.log(err)
       res.status(500).send({
-        error: 'error trying to delete this customer'
+        error: 'error trying to delete this order'
       })
     }
   }

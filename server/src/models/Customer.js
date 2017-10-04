@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: true
     },
+    customer_code: {
+      type: DataTypes.STRING,
+      unique: true
+    },
     iva_cf: {
       type: DataTypes.STRING
     },

@@ -15,7 +15,15 @@ module.exports = (app) => {
   app.get('/customers',
            CustomerController.index)
   app.post('/customers/create',
-            CustomerController.post)/*
+            CustomerController.post)
+  app.get('/customers/detail/:customerId',
+           CustomerController.get),
   app.delete('/customers/delete/:customerId',
-            CustomerController.remove)*/
+              CustomerController.remove)
+  app.put('/customers/edit/:customerId',
+            CustomerController.put)
+
+//orders
+app.get('/order',
+         OrderController.index)
 }
