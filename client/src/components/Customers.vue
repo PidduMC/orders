@@ -52,7 +52,6 @@ export default {
   methods: {
     async create () {
       try {
-        console.log('creating customer...')
         this.$router.push({
           name: 'customercreate'
         })

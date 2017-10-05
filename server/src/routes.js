@@ -2,6 +2,8 @@
 const AuthenticationController = require('./controllers/AuthenticationController')
 const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
 const CustomerController = require ('./controllers/CustomerController')
+const OrderController = require('./controllers/OrderController')
+const CategoryController = require ('./controllers/CategoryController')
 
 module.exports = (app) => {
   app.post('/register',
@@ -23,7 +25,21 @@ module.exports = (app) => {
   app.put('/customers/edit/:customerId',
             CustomerController.put)
 
-//orders
-app.get('/order',
-         OrderController.index)
+  //order
+  app.get('/orders',
+           OrderController.index)
+
+  //category
+  app.get('/categories',
+            CategoryController.index)
+  app.post('/categories/create',
+            CategoryController.post)
+  app.get('/categories/detail/:categoryId',
+           CategoryController.get)
+  app.delete('/categories/delete/:categoryId',
+              CategoryController.remove)
+  app.put('/categories/edit/:categoryId',
+           CategoryController.put)
+
+
 }

@@ -62,41 +62,35 @@
 
 <script>
 import CustomerService from '@/services/CustomerService'
+// import OrderService from '@/services/OrderService'
+import CategoryService from '@/services/CategoryService'
+import ItemService from '@/services/ItemService'
 
 export default {
   data () {
     return {
       valid: false,
+      customers: {},
+      items: {},
+      categories: {},
       customer: {
-        society_name: '',
-        society_nameRules: [
-          (v) => !!v || 'Inserire la ragione sociale',
-          ((v) => v && v.length <= 100) || 'Non superare i 100 caratteri'
-        ],
-        mail: '',
-        mailRules: [
-          (v) => !!v || 'E-mail richiesta',
-          (v) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail deve essere valida'
-        ],
-        customer_code: '',
-        customer_codeRules: [
-          (v) => !!v || 'Inserire codice cliente',
-          ((v) => v && v.length <= 8) || 'Non superare 8 caratteri'
-        ],
-        telephone: '',
-        telephoneRules: [
-          (v) => !!v || 'Inserire numero di telefono',
-          ((v) => v && v.length <= 15) || 'Non superare 8 caratteri'
-        ],
-        iva_cf: '',
-        iva_cfRules: [
-          (v) => !!v || 'Inserire codice fiscale o partita iva',
-          ((v) => v && v.length <= 11) || 'Non superare 11 caratteri'
-        ],
-        notes: '',
-        notesRules: [
-          ((v) => v.length <= 255) || 'Non superare 255 caratteri'
-        ]
+        _id: null,
+        society_name: null,
+        mail: null,
+        customer_code: null,
+        telephone: null,
+        iva_cf: null,
+        notes: null
+      },
+      order: {
+        customer_id: null,
+        category_id: null,
+        item_id: null,
+        quantity: null,
+        delivery_date: null,
+        delivery_type: null,
+        date: null,
+        status: null
       },
       error: ''
     }
@@ -129,6 +123,11 @@ export default {
       this.mail = ''
       this.notes = ''
     }
+  },
+  async mounted () {
+    this.customers = await CustomerService.index()
+    this.items = await ItemService.index()
+    this.categories = await CategoryService.index()
   }
 }
 </script>

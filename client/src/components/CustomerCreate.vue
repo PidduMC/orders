@@ -105,7 +105,6 @@ export default {
     async create () {
       this.error = null
       try {
-        console.log('customer create...')
         await CustomerService.create({
           society_name: this.customer.society_name,
           customer_code: this.customer.customer_code,

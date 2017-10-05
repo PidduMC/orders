@@ -8,53 +8,52 @@
           <v-toolbar-title>Modifica Cliente</v-toolbar-title>
         </v-toolbar>
           <div class="pl-4 pr-4 pt-3 pb-2">
-            <div class="pl-4 pr-4 pt-3 pb-2">
-              <v-form v-model="valid" ref="form">
-                <v-text-field
-                  label="Ragione Sociale"
-                  v-model="customer.society_name"
-                  :rules="customer.society_nameRules"
-                  :counter="100"
-                  required
-                ></v-text-field>
-                <v-text-field
-                  label="Codice Cliente"
-                  v-model="customer.customer_code"
-                  :rules="customer.customer_codeRules"
-                  :counter="8"
-                  required
-                ></v-text-field>
-                <v-text-field
-                  label="IVA/CF"
-                  v-model="customer.iva_cf"
-                  :rules="customer.iva_cfRules"
-                  :counter="11"
-                  required
-                ></v-text-field>
-                <v-text-field
-                  label="Telefono"
-                  v-model="customer.telephone"
-                  :rules="customer.telephoneRules"
-                  :counter="15"
-                  required
-                ></v-text-field>
-                <v-text-field
-                  label="E-Mail"
-                  v-model="customer.mail"
-                  :rules="customer.mailRules"
-                  :counter="100"
-                  required
-                ></v-text-field>
-                <v-text-field
-                  label="Notes"
-                  v-model="customer.notes"
-                  :rules="customer.notesRules"
-                  :counter="255"
-                ></v-text-field>
-                <v-btn @click="modify" :class="{ green: valid, red: !valid }">Modifica</v-btn>
-                <v-btn @click="cancel">Annulla</v-btn>
-              </v-form>
-              </div>
+            <v-form v-model="valid" ref="form">
+              <v-text-field
+                label="Ragione Sociale"
+                v-model="customer.society_name"
+                :rules="customer.society_nameRules"
+                :counter="100"
+                required
+              ></v-text-field>
+              <v-text-field
+                label="Codice Cliente"
+                v-model="customer.customer_code"
+                :rules="customer.customer_codeRules"
+                :counter="8"
+                required
+              ></v-text-field>
+              <v-text-field
+                label="IVA/CF"
+                v-model="customer.iva_cf"
+                :rules="customer.iva_cfRules"
+                :counter="11"
+                required
+              ></v-text-field>
+              <v-text-field
+                label="Telefono"
+                v-model="customer.telephone"
+                :rules="customer.telephoneRules"
+                :counter="15"
+                required
+              ></v-text-field>
+              <v-text-field
+                label="E-Mail"
+                v-model="customer.mail"
+                :rules="customer.mailRules"
+                :counter="100"
+                required
+              ></v-text-field>
+              <v-text-field
+                label="Notes"
+                v-model="customer.notes"
+                :rules="customer.notesRules"
+                :counter="255"
+              ></v-text-field>
+              <p>{{error}}</p>
+              <v-btn @click="modify" :class="{ green: valid, red: !valid }">Modifica</v-btn>
+              <v-btn @click="cancel">Annulla</v-btn>
+            </v-form>
           </div>
         </div>
       </div>
@@ -73,7 +72,7 @@ export default {
         society_name: null,
         customer_code: null,
         telephone: null,
-        notes: null,
+        notes: '',
         mail: null,
         iva_cf: null
       },

@@ -11,7 +11,7 @@ export default {
     return Api().post('customers/create', customer)
   },
   remove (customer) {
-    return Api().delete(`customers/delete/${customer._Id}`, customer)
+    return Api().delete(`customers/delete/${customer._id}`, customer)
   },
   modify (customer) {
     return Api().put(`customers/edit/${customer._id}`, customer)

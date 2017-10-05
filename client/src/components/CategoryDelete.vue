@@ -1,4 +1,4 @@
-//Customer Create Component
+//Category Delete Component
 
 <template>
   <v-layout row>
@@ -8,8 +8,8 @@
           <v-toolbar-title>Rimuovi Cliente</v-toolbar-title>
         </v-toolbar>
           <div class="pl-4 pr-4 pt-3 pb-2">
-            <p>Sei sicuro di voler Rimuovere questo cliente:</p>
-            <p>{{customer.society_name}}</p>
+            <p>Sei sicuro di voler Rimuovere questa categoria?</p>
+            <p>{{category.type}}</p>
             <v-btn @click="remove" :class="{ green: valid, red: !valid }">Rimuovi</v-btn>
             <v-btn @click="cancel">Annulla</v-btn>
           </div>
@@ -20,22 +20,22 @@
 </template>
 
 <script>
-import CustomerService from '@/services/CustomerService'
+import CategoryService from '@/services/CategoryService'
 
 export default {
   data () {
     return {
       valid: false,
-      customer: {}
+      category: {}
     }
   },
   methods: {
     async remove () {
       try {
         this.error = ''
-        await CustomerService.remove(this.customer)
+        await CategoryService.remove(this.category)
         this.$router.push({
-          name: 'customers'
+          name: 'categories'
         })
       } catch (err) {
         this.error = this.route.response.data.error
@@ -44,8 +44,8 @@ export default {
     async cancel () {
       try {
         this.$router.push({
-          name: 'customerdetail',
-          params: this.customer._id
+          name: 'categorydetail',
+          params: this.category._id
         })
       } catch (err) {
         this.error = err
@@ -54,7 +54,7 @@ export default {
   },
   async mounted () {
     try {
-      this.customer = (await CustomerService.show(this.$store.state.route.params.customerId)).data
+      this.category = (await CategoryService.show(this.$store.state.route.params.categoryId)).data
     } catch (err) {
       console.log(err)
     }
