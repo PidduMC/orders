@@ -44,6 +44,17 @@
       </v-btn>
     </v-toolbar-items>
 
+    <v-toolbar-items>
+      <v-btn
+        flat
+        dark
+        :to="{
+          name: 'items'
+        }">
+        Items
+      </v-btn>
+    </v-toolbar-items>
+
     <v-spacer></v-spacer>
 
     <v-toolbar-items>

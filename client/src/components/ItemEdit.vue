@@ -1,32 +1,32 @@
-//CategoryEdit Component
+//ItemEdit Component
 
 <template>
   <v-layout row>
     <v-flex xs6 offset-xs3>
       <div class="white elevation-2">
         <v-toolbar flat dense class="cyan" dark>
-          <v-toolbar-title>Modifica Categoria</v-toolbar-title>
+          <v-toolbar-title>Modifica Prodotto</v-toolbar-title>
         </v-toolbar>
           <div class="pl-4 pr-4 pt-3 pb-2">
             <v-form v-model="valid" ref="form">
               <v-text-field
-                label="Tipo Di Prodotto"
-                v-model="category.type"
-                :rules="category.typeRules"
+                label="Nome Prodotto"
+                v-model="item.name"
+                :rules="item.nameRules"
                 :counter="100"
                 required
               ></v-text-field>
               <v-text-field
                 label="Descrizione"
-                v-model="category.description"
-                :rules="category.descriptionRules"
+                v-model="item.description"
+                :rules="item.descriptionRules"
                 :counter="150"
                 required
               ></v-text-field>
               <v-text-field
-                label="Note"
-                v-model="category.notes"
-                :rules="category.notesRules"
+                label="Categoria"
+                v-model="item.category_id"
+                :rules="item.category_idRules"
                 :counter="11"
                 required
               ></v-text-field>
@@ -42,20 +42,20 @@
 </template>
 
 <script>
-import CategoryService from '@/services/CategoryService'
+import ItemService from '@/services/ItemService'
 
 export default {
   data () {
     return {
       valid: false,
-      category: {
-        type: null,
-        description: null,
+      item: {
+        name: null,
+        descriptio: null,
         descriptionRules: [
           ((v) => v.length <= 150) || 'Non superare 255 caratteri'
         ],
-        notes: null,
-        notesRules: [
+        category_id: null,
+        category_idRules: [
           ((v) => v.length <= 255) || 'Non superare 255 caratteri'
         ]
       },
@@ -66,18 +66,18 @@ export default {
     async modify () {
       this.error = null
       const areAllFieldsFilledIn = Object
-        .keys(this.category)
-        .every(key => !!this.category[key])
+        .keys(this.item)
+        .every(key => !!this.item[key])
       if (!areAllFieldsFilledIn) {
         this.error = 'Compilate i campi'
         return
       }
       try {
-        await CategoryService.modify(this.category)
+        await ItemService.modify(this.item)
         this.$router.push({
-          name: 'categorydetail',
+          name: 'itemdetail',
           params: {
-            categoryId: this.category._id
+            itemId: this.item._id
           }
         })
       } catch (err) {
@@ -87,8 +87,8 @@ export default {
     async cancel () {
       try {
         this.$router.push({
-          name: 'categorydetail',
-          params: this.category._id
+          name: 'itemdetail',
+          params: this.item._id
         })
       } catch (err) {
         this.error = err
@@ -98,7 +98,7 @@ export default {
 
   async mounted () {
     try {
-      this.category = (await CategoryService.show(this.$store.state.route.params.categoryId)).data
+      this.item = (await ItemService.show(this.$store.state.route.params.itemId)).data
     } catch (err) {
       console.log(err)
     }

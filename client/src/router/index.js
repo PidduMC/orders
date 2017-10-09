@@ -15,6 +15,11 @@ import CategoryCreate from '@/components/CategoryCreate'
 import CategoryDetail from '@/components/CategoryDetail'
 import CategoryDelete from '@/components/CategoryDelete'
 import CategoryEdit from '@/components/CategoryEdit'
+import Items from '@/components/Items'
+import ItemCreate from '@/components/ItemCreate'
+import ItemDetail from '@/components/ItemDetail'
+import ItemDelete from '@/components/ItemDelete'
+import ItemEdit from '@/components/ItemEdit'
 
 Vue.use(Router)
 
@@ -94,6 +99,31 @@ export default new Router({
       path: '/categories/edit/:categoryId',
       name: 'categoryedit',
       component: CategoryEdit
+    },
+    {
+      path: '/items',
+      name: 'items',
+      component: Items
+    },
+    {
+      path: '/items/create',
+      name: 'itemcreate',
+      component: ItemCreate
+    },
+    {
+      path: '/items/detail/:itemId',
+      name: 'itemdetail',
+      component: ItemDetail
+    },
+    {
+      path: '/items/delete/:itemId',
+      name: 'itemdelete',
+      component: ItemDelete
+    },
+    {
+      path: '/items/edit/:itemId',
+      name: 'itemedit',
+      component: ItemEdit
     }
   ]
 })

@@ -4,6 +4,7 @@ const AuthenticationControllerPolicy = require('./policies/AuthenticationControl
 const CustomerController = require ('./controllers/CustomerController')
 const OrderController = require('./controllers/OrderController')
 const CategoryController = require ('./controllers/CategoryController')
+const ItemController = require('./controllers/ItemController')
 
 module.exports = (app) => {
   app.post('/register',
@@ -41,5 +42,16 @@ module.exports = (app) => {
   app.put('/categories/edit/:categoryId',
            CategoryController.put)
 
+  //item
+  app.get('/items',
+            ItemController.index)
+  app.post('/items/create',
+            ItemController.post)
+  app.get('/items/detail/:itemId',
+           ItemController.get)
+  app.delete('/items/delete/:itemId',
+           ItemController.remove)
+  app.put('/items/edit/:itemId',
+           ItemController.put)
 
 }

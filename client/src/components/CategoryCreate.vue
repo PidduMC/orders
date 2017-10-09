@@ -25,9 +25,9 @@
             ></v-text-field>
             <v-text-field
               label="Note"
-              v-model="category.iva_cf"
-              :rules="category.iva_cfRules"
-              :counter="11"
+              v-model="category.notes"
+              :rules="category.notes"
+              :counter="250"
               required
             ></v-text-field>
             <v-btn @click="create" :class="{ green: valid, red: !valid }">Crea</v-btn>
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import categoryService from '@/services/CategoryService'
+import CategoryService from '@/services/CategoryService'
 
 export default {
   data () {
@@ -70,7 +70,7 @@ export default {
     async create () {
       this.error = null
       try {
-        await categoryService.create({
+        await CategoryService.create({
           type: this.category.type,
           description: this.category.description,
           notes: this.category.notes
