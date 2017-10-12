@@ -10,12 +10,12 @@
         <div class="pl-4 pr-4 pt-3 pb-2">
           <v-data-table
             v-bind:headers="headers"
-            :items="items"
+            :items="products"
             hide-actions
             class="elevation-1">
           <template slot="items" scope="props">
-            <td class="text-xs-left"><router-link :to="{ name: 'itemdetail', params: {itemId: props.item._id }}">{{props.item.name}}</router-link></td>
-            <td class="text-xs-left"><router-link :to="{ name: 'categorydetail', params: {categoryId: props.item.CategoryId}}">{{props.item.type}}</router-link></td>
+            <td class="text-xs-left"><router-link :to="{ name: 'productdetail', params: {productId: props.item._id }}">{{props.item.name}}</router-link></td>
+            <td class="text-xs-left"><router-link :to="{ name: 'categorydetail', params: {categoryId: props.item.CategoryId}}">{{props.item.Category.name}}</router-link></td>
           </template>
         </v-data-table>
         <v-btn class="cyan" @click="create">Nuovo</v-btn>
@@ -26,17 +26,17 @@
 </template>
 
 <script>
-import ItemService from '@/services/ItemService'
+import ProductService from '@/services/ProductService'
 import CategoryService from '@/services/CategoryService'
 
 export default {
   data () {
     return {
       headers: [
-        { text: 'Item', value: 'name', align: 'left' },
-        { text: 'Category', value: 'CategoryId', align: 'left' }
+        { text: 'Prodotto', value: 'name', align: 'left' },
+        { text: 'Categoria', value: 'CategoryId', align: 'left' }
       ],
-      items: [],
+      products: [],
       categories: []
     }
   },
@@ -45,7 +45,7 @@ export default {
     async create () {
       try {
         this.$router.push({
-          name: 'itemcreate'
+          name: 'productcreate'
         })
       } catch (error) {
         this.error = error.response.data.error
@@ -54,7 +54,7 @@ export default {
   },
 
   async mounted () {
-    this.items = (await ItemService.index()).data
+    this.products = (await ProductService.index()).data
     this.categories = (await CategoryService.index()).data
   }
 }

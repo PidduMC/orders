@@ -5,6 +5,7 @@ const CustomerController = require ('./controllers/CustomerController')
 const OrderController = require('./controllers/OrderController')
 const CategoryController = require ('./controllers/CategoryController')
 const ItemController = require('./controllers/ItemController')
+const ProductController = require('./controllers/ProductController')
 
 module.exports = (app) => {
   app.post('/register',
@@ -29,10 +30,16 @@ module.exports = (app) => {
   //order
   app.get('/orders',
            OrderController.index)
+  app.post('/orders/create',
+            OrderController.post)
+  app.get('/orders/detail/:orderId',
+            OrderController.get)
+  app.put('/orders/edit/:orderId',
+          OrderController.put)
 
   //category
   app.get('/categories',
-            CategoryController.index)
+           CategoryController.index)
   app.post('/categories/create',
             CategoryController.post)
   app.get('/categories/detail/:categoryId',
@@ -50,8 +57,25 @@ module.exports = (app) => {
   app.get('/items/detail/:itemId',
            ItemController.get)
   app.delete('/items/delete/:itemId',
-           ItemController.remove)
+              ItemController.remove)
   app.put('/items/edit/:itemId',
-           ItemController.put)
+           ItemController.put),
+  app.get('/items/getByCategoryId/:categoryId',
+           ItemController.getByCategoryId)
+
+   //product
+   app.get('/products',
+             ProductController.index)
+   app.post('/products/create',
+             ProductController.post)
+   app.get('/products/detail/:productId',
+            ProductController.get)
+   app.delete('/products/delete/:productId',
+               ProductController.remove)
+   app.put('/products/edit/:productId',
+            ProductController.put),
+   app.get('/products/getByCategoryId/:caegoryId',
+            ProductController.getByCategoryId)
+
 
 }

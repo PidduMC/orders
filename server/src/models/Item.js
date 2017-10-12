@@ -8,18 +8,12 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true
     },
-    name: {
-      type: DataTypes.STRING
-    },
-    description: {
-      type: DataTypes.STRING
-    },
-    category_id: {
-      type: DataTypes.UUID
-    }
   })
 
   Item.associate = function (models) {
+    Item.belongsTo(models.Category)
+    Item.belongsTo(models.Product)
+    Item.belongsTo(models.Order)
   }
 
   return Item

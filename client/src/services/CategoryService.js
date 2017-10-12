@@ -16,5 +16,4 @@ export default {
   modify (category) {
     return Api().put(`categories/edit/${category._id}`, category)
   }
-
 }

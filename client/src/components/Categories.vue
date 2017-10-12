@@ -15,7 +15,7 @@
             class="elevation-1"
           >
           <template slot="items" scope="props">
-            <td class="text-xs-left"><router-link :to="{ name: 'categorydetail', params: {categoryId: props.item._id }}">{{props.item.type}}</router-link></td>
+            <td class="text-xs-left"><router-link :to="{ name: 'categorydetail', params: {categoryId: props.item._id }}">{{props.item.name}}</router-link></td>
               <td class="text-xs-left">{{ props.item.description }}</td>
           </template>
           </v-data-table>
@@ -36,7 +36,7 @@ export default {
         { text: 'Categoria', value: 'type', align: 'left', sortable: true },
         { text: 'Descrizione', value: 'description', align: 'left' }
       ],
-      categories: {}
+      categories: []
     }
   },
   methods: {

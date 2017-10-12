@@ -11,7 +11,7 @@ export default {
     return Api().post('orders/create', order)
   },
   remove (order) {
-    return Api().delete(`orders/delete/${order._Id}`, order)
+    return Api().delete(`orders/delete/${order._id}`, order)
   },
   modify (order) {
     return Api().put(`orders/edit/${order._id}`, order)

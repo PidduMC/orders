@@ -8,17 +8,8 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true
     },
-    customer_id: {
-      type: DataTypes.UUID
-    },
-    item_id: {
-      type: DataTypes.UUID
-    },
     quantity: {
       type: DataTypes.INTEGER
-    },
-    date: {
-      type: DataTypes.DATEONLY
     },
     delivery_date: {
       type: DataTypes.DATEONLY
@@ -33,9 +24,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   })
 
-
-
 Order.associate = function (models) {
+  Order.belongsTo(models.Customer)
+  Order.hasMany(models.Item)
   }
 
   return Order

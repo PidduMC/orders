@@ -5,7 +5,7 @@
     <v-flex xs6 offset-xs3>
       <div class="white elevation-2">
         <v-toolbar flat dense class="cyan" dark>
-          <v-toolbar-title>Dettagli Prodotto</v-toolbar-title>
+          <v-toolbar-title>Dettagli Item</v-toolbar-title>
         </v-toolbar>
         <div class="pl-4 pr-4 pt-3 pb-2">
           <v-card>
@@ -18,7 +18,8 @@
             </v-card-title>
             <v-card-text>
               <div class="text-xs-left">
-                <p>Descrizione  : {{item.description}}</p>
+                <p>Categoria: {{item.Category.type}}</p>
+                <p>Descrizione: {{item.description}}</p>
               </div>
             </v-card-text>
             <v-card-actions>
@@ -42,7 +43,8 @@ export default {
       item: {
         name: null,
         description: null,
-        item_id: null
+        item_id: null,
+        Category: {}
       },
       error: null
     }

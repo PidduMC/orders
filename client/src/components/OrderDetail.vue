@@ -1,11 +1,11 @@
-//Customer Detail Component
+//Item Detail Component
 
 <template>
   <v-layout row>
     <v-flex xs6 offset-xs3>
       <div class="white elevation-2">
         <v-toolbar flat dense class="cyan" dark>
-          <v-toolbar-title>Dettagli Categoria</v-toolbar-title>
+          <v-toolbar-title>Dettagli Ordine</v-toolbar-title>
         </v-toolbar>
         <div class="pl-4 pr-4 pt-3 pb-2">
           <v-card>
@@ -13,15 +13,14 @@
             </v-card-media>
             <v-card-title primary-title>
               <div>
-                <h1 class="headline mb-0">{{category.name}}</h1>
+                <h1 class="headline mb-0">Ordine: {{order._id}}</h1>
               </div>
             </v-card-title>
             <v-card-text>
               <div class="text-xs-left">
-                <p>Descrizione  : {{category.description}}</p>
-              </div>
-              <div class="text-xs-left">
-                <p>Note: {{category.notes}}</p>
+                <p>Cliente: {{order.Customer.society_name}}</p>
+                <p>Prodotto: {{order.Item.name}}</p>
+                <p>Creato il: {{createdAtFormatted}}</p>
               </div>
             </v-card-text>
             <v-card-actions>
@@ -37,16 +36,18 @@
 </template>
 
 <script>
-import CategoryService from '@/services/CategoryService'
+import OrderService from '@/services/OrderService'
+import DateFormatter from '@/services/DateFormatter'
 
 export default {
   data () {
     return {
-      category: {
-        name: null,
-        description: null,
-        notes: null
+      order: {
+        createdAt: '',
+        Customer: {},
+        Item: {}
       },
+      createdAtFormatted: '',
       error: null
     }
   },
@@ -55,8 +56,8 @@ export default {
       try {
         this.error = ''
         this.$router.push({
-          name: 'categorydelete',
-          params: this.$store.state.route.params.categoryId
+          name: 'orderdelete',
+          params: this.$store.state.route.params.orderId
         })
       } catch (err) {
         this.error = this.route.response.data.error
@@ -65,8 +66,8 @@ export default {
     async modify () {
       try {
         this.$router.push({
-          name: 'categoryedit',
-          params: this.$store.state.route.params.categoryId
+          name: 'orderedit',
+          params: this.$store.state.route.params.orderId
         })
       } catch (err) {
         this.error = this.router.response.data.error
@@ -75,7 +76,8 @@ export default {
   },
   async mounted () {
     try {
-      this.category = (await CategoryService.show(this.$store.state.route.params.categoryId)).data
+      this.order = (await OrderService.show(this.$store.state.route.params.orderId)).data
+      this.createdAtFormatted = DateFormatter.formatDate(this.order.createdAt)
     } catch (err) {
       console.log(err)
     }

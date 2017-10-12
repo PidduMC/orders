@@ -11,15 +11,15 @@
             <v-form v-model="valid" ref="form">
               <v-text-field
                 label="Nome Prodotto"
-                v-model="item.name"
-                :rules="item.nameRules"
+                v-model="product.name"
+                :rules="product.nameRules"
                 :counter="100"
                 required
               ></v-text-field>
               <v-text-field
                 label="Descrizione"
-                v-model="item.description"
-                :rules="item.descriptionRules"
+                v-model="product.description"
+                :rules="product.descriptionRules"
                 :counter="150"
                 required
               ></v-text-field>
@@ -31,7 +31,7 @@
                   <v-flex xs12 sm6>
                     <v-select
                       v-bind:items="categories"
-                      v-model="item.CategoryId"
+                      v-model="product.CategoryId"
                       item-value="_id"
                       item-text="name"
                       label="Scegli la Categoria"
@@ -52,14 +52,14 @@
 </template>
 
 <script>
-import ItemService from '@/services/ItemService'
+import ProductService from '@/services/ProductService'
 import CategoryService from '@/services/CategoryService'
 
 export default {
   data () {
     return {
       valid: false,
-      item: {
+      product: {
         name: '',
         nameRules: [
           ((v) => v.length <= 150) || 'Non superare 100 caratteri'
@@ -79,18 +79,18 @@ export default {
     async modify () {
       this.error = null
       const areAllFieldsFilledIn = Object
-        .keys(this.item)
-        .every(key => !!this.item[key])
+        .keys(this.product)
+        .every(key => !!this.product[key])
       if (!areAllFieldsFilledIn) {
         this.error = 'Compilate i campi'
         return
       }
       try {
-        await ItemService.modify(this.item)
+        await ProductService.modify(this.product)
         this.$router.push({
-          name: 'itemdetail',
+          name: 'productdetail',
           params: {
-            itemId: this.item._id
+            itemId: this.product._id
           }
         })
       } catch (err) {
@@ -100,8 +100,8 @@ export default {
     async cancel () {
       try {
         this.$router.push({
-          name: 'itemdetail',
-          params: this.item._id
+          name: 'productdetail',
+          params: this.product._id
         })
       } catch (err) {
         this.error = err
@@ -112,7 +112,7 @@ export default {
   async mounted () {
     try {
       this.categories = (await CategoryService.index()).data
-      this.item = (await ItemService.show(this.$store.state.route.params.itemId)).data
+      this.product = (await ProductService.show(this.$store.state.route.params.productId)).data
     } catch (err) {
       console.log(err)
     }

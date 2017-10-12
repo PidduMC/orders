@@ -11,10 +11,13 @@ export default {
     return Api().post('items/create', item)
   },
   remove (item) {
-    return Api().delete(`items/delete/${item._Id}`, item)
+    return Api().delete(`items/delete/${item._id}`, item)
   },
   modify (item) {
     return Api().put(`items/edit/${item._id}`, item)
+  },
+  getByCategoryId (categoryId) {
+    return Api().get(`items/getByCategoryId/${categoryId}`)
   }
 
 }

@@ -1,15 +1,15 @@
-//Category Delete Component
+//ProductDelete Component
 
 <template>
   <v-layout row>
     <v-flex xs6 offset-xs3>
       <div class="white elevation-2">
         <v-toolbar flat dense class="cyan" dark>
-          <v-toolbar-title>Rimuovi Categoria</v-toolbar-title>
+          <v-toolbar-title>Rimuovi Prodotto</v-toolbar-title>
         </v-toolbar>
           <div class="pl-4 pr-4 pt-3 pb-2">
-            <p>Sei sicuro di voler Rimuovere questa categoria?</p>
-            <p>{{category.name}}</p>
+            <p>Sei sicuro di voler Rimuovere questo prodotto?</p>
+            <p>{{product.name}}</p>
             <v-btn @click="remove" :class="{ green: valid, red: !valid }">Rimuovi</v-btn>
             <v-btn @click="cancel">Annulla</v-btn>
           </div>
@@ -20,22 +20,22 @@
 </template>
 
 <script>
-import CategoryService from '@/services/CategoryService'
+import ProductService from '@/services/ProductService'
 
 export default {
   data () {
     return {
       valid: false,
-      category: {}
+      product: {}
     }
   },
   methods: {
     async remove () {
       try {
         this.error = ''
-        await CategoryService.remove(this.category)
+        await ProductService.remove(this.product)
         this.$router.push({
-          name: 'categories'
+          name: 'products'
         })
       } catch (err) {
         this.error = this.route.response.data.error
@@ -44,8 +44,8 @@ export default {
     async cancel () {
       try {
         this.$router.push({
-          name: 'categorydetail',
-          params: this.category._id
+          name: 'productdetail',
+          params: this.product._id
         })
       } catch (err) {
         this.error = err
@@ -54,7 +54,7 @@ export default {
   },
   async mounted () {
     try {
-      this.category = (await CategoryService.show(this.$store.state.route.params.categoryId)).data
+      this.product = (await ProductService.show(this.$store.state.route.params.productId)).data
     } catch (err) {
       console.log(err)
     }

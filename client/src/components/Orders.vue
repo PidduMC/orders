@@ -15,8 +15,8 @@
           <template slot="items" scope="props">
             <td class="text-xs-left">{{props.item.data}}</td>
             <td class="text-xs-left"><router-link :to="{ name: 'orderdetail', params: {orderId: props.item._id }}">{{props.item._id}}</router-link></td>
-            <td class="text-xs-left">{{ props.item.customer_id }}</td>
-            <td class="text-xs-left">{{ props.item.item_id }}</td>
+            <td class="text-xs-left"><router-link :to="{ name: 'customerdetail', params: {customerId: props.item.CustomerId }}">{{props.item.Customer.society_name}}</router-link></td>
+            <td class="text-xs-left"><router-link :to="{ name: 'itemdetail', params: {itemId: props.item.ItemId }}">{{props.item.Item.name}}</router-link></td>
           </template>
         </v-data-table>
         <v-btn class="cyan" @click="create">Nuovo</v-btn>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import orderService from '@/services/orderService'
+import OrderService from '@/services/OrderService'
 
 export default {
   data () {
@@ -39,15 +39,12 @@ export default {
           text: 'Cliente',
           align: 'left',
           sortable: true,
-          value: 'customer_id'
+          value: 'CustomerId'
         },
-        { text: 'Item', value: 'item_id', align: 'left' }
+        { text: 'Item', value: 'ItemId', align: 'left' }
       ],
       orders: []
     }
-  },
-  async mounted () {
-    this.orders = (await orderService.index()).data
   },
   methods: {
     async create () {
@@ -59,6 +56,9 @@ export default {
         this.error = error.response.data.error
       }
     }
+  },
+  async mounted () {
+    this.orders = (await OrderService.index()).data
   }
 }
 </script>

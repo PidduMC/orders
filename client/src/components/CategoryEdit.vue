@@ -11,7 +11,7 @@
             <v-form v-model="valid" ref="form">
               <v-text-field
                 label="Tipo Di Prodotto"
-                v-model="category.type"
+                v-model="category.name"
                 :rules="category.typeRules"
                 :counter="100"
                 required
@@ -20,14 +20,14 @@
                 label="Descrizione"
                 v-model="category.description"
                 :rules="category.descriptionRules"
-                :counter="150"
+                :counter="255"
                 required
               ></v-text-field>
               <v-text-field
                 label="Note"
                 v-model="category.notes"
                 :rules="category.notesRules"
-                :counter="11"
+                :counter="255"
                 required
               ></v-text-field>
               <p>{{error}}</p>
@@ -49,12 +49,12 @@ export default {
     return {
       valid: false,
       category: {
-        type: null,
+        name: null,
         description: null,
         descriptionRules: [
-          ((v) => v.length <= 150) || 'Non superare 255 caratteri'
+          ((v) => v.length <= 255) || 'Non superare 255 caratteri'
         ],
-        notes: null,
+        notes: '',
         notesRules: [
           ((v) => v.length <= 255) || 'Non superare 255 caratteri'
         ]

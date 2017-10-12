@@ -49,9 +49,9 @@
         flat
         dark
         :to="{
-          name: 'items'
+          name: 'products'
         }">
-        Items
+        Prodotti
       </v-btn>
     </v-toolbar-items>
 

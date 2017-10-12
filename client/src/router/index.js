@@ -10,6 +10,8 @@ import CustomerDelete from '@/components/CustomerDelete'
 import CustomerEdit from '@/components/CustomerEdit'
 import Orders from '@/components/Orders'
 import OrderCreate from '@/components/OrderCreate'
+import OrderDetail from '@/components/OrderDetail'
+import OrderEdit from '@/components/OrderEdit'
 import Categories from '@/components/Categories'
 import CategoryCreate from '@/components/CategoryCreate'
 import CategoryDetail from '@/components/CategoryDetail'
@@ -20,6 +22,11 @@ import ItemCreate from '@/components/ItemCreate'
 import ItemDetail from '@/components/ItemDetail'
 import ItemDelete from '@/components/ItemDelete'
 import ItemEdit from '@/components/ItemEdit'
+import Products from '@/components/Products'
+import ProductCreate from '@/components/ProductCreate'
+import ProductDetail from '@/components/ProductDetail'
+import ProductDelete from '@/components/ProductDelete'
+import ProductEdit from '@/components/ProductEdit'
 
 Vue.use(Router)
 
@@ -76,6 +83,16 @@ export default new Router({
       component: OrderCreate
     },
     {
+      path: '/orders/detail/:orderId',
+      name: 'orderdetail',
+      component: OrderDetail
+    },
+    {
+      path: '/orders/edit/:orderId',
+      name: 'orderedit',
+      component: OrderEdit
+    },
+    {
       path: '/categories',
       name: 'categories',
       component: Categories
@@ -124,6 +141,31 @@ export default new Router({
       path: '/items/edit/:itemId',
       name: 'itemedit',
       component: ItemEdit
+    },
+    {
+      path: '/products',
+      name: 'products',
+      component: Products
+    },
+    {
+      path: '/products/create',
+      name: 'productcreate',
+      component: ProductCreate
+    },
+    {
+      path: '/products/detail/:productId',
+      name: 'productdetail',
+      component: ProductDetail
+    },
+    {
+      path: '/products/delete/:productId',
+      name: 'productdelete',
+      component: ProductDelete
+    },
+    {
+      path: '/products/edit/:productId',
+      name: 'productedit',
+      component: ProductEdit
     }
   ]
 })

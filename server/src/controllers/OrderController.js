@@ -1,12 +1,18 @@
-const {Order} = require('../models')
+const {Order, Customer, Item} = require('../models')
 const jwt = require('jsonwebtoken')
 const config = require('../config/config')
+const _ = require('lodash')
 
 
 module.exports = {
   async index (req,res) {
     try {
-      const orders = await Order.findAll()
+      const orders = await Order.findAll({
+        include : [
+          { model: Customer },
+          { model: Item }
+        ]
+      })
       res.send(orders)
     } catch (err) {
       res.status(500).send({
@@ -29,10 +35,14 @@ module.exports = {
   async get (req, res) {
     try {
       const {orderId} = req.params
-      const order = await order.findOne({
+      const order = await Order.findOne({
         where: {
           _id: orderId
-        }
+        },
+        include : [
+          { model: Customer },
+          { model: Item }
+        ]
       })
       if (!order) {
         return res.status(404).send({
@@ -42,7 +52,6 @@ module.exports = {
       else {
         res.send(order)
       }
-
     } catch (err) {
       res.status(400).send({
         error: err
@@ -52,7 +61,7 @@ module.exports = {
 
   async put (req, res) {
     try {
-      await order.update(req.body, {
+      await Order.update(req.body, {
         where: {
           _id: req.params.orderId
         }

@@ -1,4 +1,4 @@
-const {Item, Category, Product} = require('../models')
+const {Category, Product} = require('../models')
 const jwt = require('jsonwebtoken')
 const config = require('../config/config')
 const _ = require('lodash')
@@ -6,20 +6,18 @@ const _ = require('lodash')
 module.exports = {
   async index (req,res) {
     try {
-      const items = await Item.findAll({
+      const products = await Product.findAll({
         include: [
           { model: Category},
-          { model: Product}
         ]
       })
-      .map(item => item.toJSON())
-      .map(item => _.extend(
+      .map(product => product.toJSON())
+      .map(product => _.extend(
         {},
-        item.Category,
-        item.Product,
-        item
+        product.Category,
+        product
       ))
-      res.send(items)
+      res.send(products)
     } catch (err) {
       res.status(500).send({
         error: err
@@ -29,33 +27,33 @@ module.exports = {
   async post (req, res) {
     try {
       console.log(req.body)
-      const item = await Item.create(req.body)
-      res.send(item)
+      const product = await Product.create(req.body)
+      res.send(product)
     } catch (err) {
       res.status(500).send({
-        error: 'Error while creating item'
+        error: 'Error while creating product'
       })
     }
   },
 
   async get (req, res) {
     try {
-      const {itemId} = req.params
-      const item = await Item.findOne({
+      const {productId} = req.params
+      const product = await Product.findOne({
         where: {
-          _id: itemId
+          _id: productId
         },
         include: [
           { model: Category}
         ]
       })
-      if (!item) {
+      if (!product) {
         return res.status(404).send({
-          error: "Item Non Trovato"
+          error: "Product Non Trovato"
         })
       }
       else {
-        res.send(item)
+        res.send(product)
       }
 
     } catch (err) {
@@ -67,37 +65,37 @@ module.exports = {
 
   async put (req, res) {
     try {
-      await Item.update(req.body, {
+      await Product.update(req.body, {
         where: {
-          _id: req.params.itemId
+          _id: req.params.productId
         }
       })
       res.send(req.body)
     } catch (err) {
       res.status(500).send({
-        error: 'errore durante modifica item'
+        error: 'errore durante modifica product'
       })
     }
   },
 
   async remove (req, res) {
     try {
-      const item = await Item.findOne(req.body, {
+      const product = await Product.findOne(req.body, {
         where: {
-          _id: req.params.itemId
+          _id: req.params.productId
         }
       })
-      if (!item){
+      if (!product){
         return res.status(403).send({
-          error: 'cannot remove item'
+          error: 'cannot remove product'
         })
       }
-      await item.destroy()
-      res.send(item)
+      await product.destroy()
+      res.send(product)
     } catch (err) {
       console.log(err)
       res.status(500).send({
-        error: 'error trying to delete this item'
+        error: 'error trying to delete this product'
       })
     }
   },
@@ -105,7 +103,7 @@ module.exports = {
   async getByCategoryId (req, res) {
     try {
         const {categoryId} = req.params
-        const items = await Item.findAll({
+        const products = await Product.findAll({
           where: {
             CategoryId: categoryId
           },
@@ -113,13 +111,13 @@ module.exports = {
             ['name', 'DESC']
           ]
         })
-        if(!items) {
+        if(!products) {
           return res.status(403).send({
             error: '0 Prodotti di questa Categoria!'
           })
         }
         else {
-          res.send(items)
+          res.send(products)
         }
       } catch (err) {
         console.log("response 500")

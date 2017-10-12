@@ -1,11 +1,11 @@
-//Customer Detail Component
+//Product Detail Component
 
 <template>
   <v-layout row>
     <v-flex xs6 offset-xs3>
       <div class="white elevation-2">
         <v-toolbar flat dense class="cyan" dark>
-          <v-toolbar-title>Dettagli Categoria</v-toolbar-title>
+          <v-toolbar-title>Dettagli Prodotto</v-toolbar-title>
         </v-toolbar>
         <div class="pl-4 pr-4 pt-3 pb-2">
           <v-card>
@@ -13,15 +13,13 @@
             </v-card-media>
             <v-card-title primary-title>
               <div>
-                <h1 class="headline mb-0">{{category.name}}</h1>
+                <h1 class="headline mb-0">{{product.name}}</h1>
               </div>
             </v-card-title>
             <v-card-text>
               <div class="text-xs-left">
-                <p>Descrizione  : {{category.description}}</p>
-              </div>
-              <div class="text-xs-left">
-                <p>Note: {{category.notes}}</p>
+                <p>Categoria: {{product.Category.name}}</p>
+                <p>Descrizione: {{product.description}}</p>
               </div>
             </v-card-text>
             <v-card-actions>
@@ -37,15 +35,16 @@
 </template>
 
 <script>
-import CategoryService from '@/services/CategoryService'
+import ProductService from '@/services/ProductService'
 
 export default {
   data () {
     return {
-      category: {
+      product: {
         name: null,
         description: null,
-        notes: null
+        item_id: null,
+        Category: {}
       },
       error: null
     }
@@ -55,8 +54,8 @@ export default {
       try {
         this.error = ''
         this.$router.push({
-          name: 'categorydelete',
-          params: this.$store.state.route.params.categoryId
+          name: 'productdelete',
+          params: this.$store.state.route.params.productId
         })
       } catch (err) {
         this.error = this.route.response.data.error
@@ -65,8 +64,8 @@ export default {
     async modify () {
       try {
         this.$router.push({
-          name: 'categoryedit',
-          params: this.$store.state.route.params.categoryId
+          name: 'productedit',
+          params: this.$store.state.route.params.productId
         })
       } catch (err) {
         this.error = this.router.response.data.error
@@ -75,7 +74,7 @@ export default {
   },
   async mounted () {
     try {
-      this.category = (await CategoryService.show(this.$store.state.route.params.categoryId)).data
+      this.product = (await ProductService.show(this.$store.state.route.params.productId)).data
     } catch (err) {
       console.log(err)
     }

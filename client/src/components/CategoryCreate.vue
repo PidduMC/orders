@@ -11,8 +11,8 @@
           <v-form v-model="valid" ref="form">
             <v-text-field
               label="Tipo di Prodotto"
-              v-model="category.type"
-              :rules="category.typeRules"
+              v-model="category.name"
+              :rules="category.nameRules"
               :counter="100"
               required
             ></v-text-field>
@@ -48,8 +48,8 @@ export default {
     return {
       valid: false,
       category: {
-        type: '',
-        typeRules: [
+        name: '',
+        nameRules: [
           (v) => !!v || 'Inserire Tipo di prodotto',
           ((v) => v && v.length <= 100) || 'Non superare i 100 caratteri'
         ],
@@ -71,7 +71,7 @@ export default {
       this.error = null
       try {
         await CategoryService.create({
-          type: this.category.type,
+          name: this.category.name,
           description: this.category.description,
           notes: this.category.notes
         })
@@ -83,7 +83,7 @@ export default {
       }
     },
     clear () {
-      this.type = ''
+      this.name = ''
       this.description = ''
       this.notes = ''
     }

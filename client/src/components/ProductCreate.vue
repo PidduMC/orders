@@ -1,4 +1,4 @@
-//Item Create Component
+//Product Create Component
 
 <template>
   <v-layout row>
@@ -11,15 +11,15 @@
           <v-form v-model="valid" ref="form">
             <v-text-field
               label="Nome Prodotto"
-              v-model="item.name"
-              :rules="item.nameRules"
+              v-model="product.name"
+              :rules="product.nameRules"
               :counter="100"
               required
             ></v-text-field>
             <v-text-field
               label="Descrizione"
-              v-model="item.description"
-              :rules="item.descriptionRules"
+              v-model="product.description"
+              :rules="product.descriptionRules"
               :counter="255"
               required
             ></v-text-field>
@@ -30,10 +30,10 @@
                 </v-flex>
                 <v-flex xs12 sm6>
                   <v-select
-                    v-bind:items="categories"
-                    v-model="item.CategoryId"
-                    item-value="_id"
-                    item-text="type"
+                    v-bind:products="categories"
+                    v-model="product.CategoryId"
+                    product-value="_id"
+                    product-text="type"
                     label="Scegli la Categoria"
                     autocomplete>
                   </v-select>
@@ -52,14 +52,14 @@
 </template>
 
 <script>
-import ItemService from '@/services/ItemService'
+import ProductService from '@/services/ProductService'
 import CategoryService from '@/services/CategoryService'
 
 export default {
   data () {
     return {
       valid: false,
-      item: {
+      product: {
         name: '',
         nameRules: [
           (v) => !!v || 'Inserire Nome Prodotto',
@@ -80,22 +80,22 @@ export default {
     async create () {
       this.error = null
       try {
-        await ItemService.create({
-          name: this.item.name,
-          description: this.item.description,
-          CategoryId: this.item.CategoryId
+        await ProductService.create({
+          name: this.product.name,
+          description: this.product.description,
+          CategoryId: this.product.CategoryId
         })
         this.$router.push({
-          name: 'items'
+          name: 'products'
         })
       } catch (error) {
         this.error = error.response.data.error
       }
     },
     clear () {
-      this.item.name = ''
-      this.item.description = ''
-      this.item.CategoryId = null
+      this.product.name = ''
+      this.product.description = ''
+      this.product.CategoryId = null
     }
   },
   async mounted () {
