@@ -74,7 +74,7 @@ module.exports = (app) => {
                ProductController.remove)
    app.put('/products/edit/:productId',
             ProductController.put),
-   app.get('/products/getByCategoryId/:caegoryId',
+   app.get('/products/getByCategoryId/:categoryId',
             ProductController.getByCategoryId)
 
 

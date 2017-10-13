@@ -1,0 +1,127 @@
+BACKEND API - SERVER
+
+tutti i nomi delle variabili/routes in INGLESE
+
+ROUTES
+
+index
+	pagina con info varie, box con storico ordini dal pi� recente, box con situazione magazzino
+
+login -> login route / registration form
+	...
+
+customers -> lista clienti
+	MODEL customer
+	CRUD customer
+	customers/create
+	customers/detail/id
+	customers/update/:id
+	customers/delete/:id
+products -> lista prodotti
+	MODEL product
+	CRUD
+	products/create
+	products/detail/:id
+	products/update/:id
+	products/delete/:id
+items -> TBD
+	MODEL item
+	CRUD
+	items/create
+	items/detail/:id
+	items/update/:id
+	items/delete/:id
+item_categories -> lista categorie prodotti
+	MODEL prod_categories
+	CRUD
+	prod_category/create
+	prod_category/detail/:id
+	prod_category/update/:id
+	prod_category/delete/:id
+badges -> lista tipi badges   - E' una categoria di prod. Unica prevista al momento
+	MODEL badge
+	CRUD badge
+	badge/create
+	badge/detail/:id
+	badge/update/:id
+	badge/delete/:id
+orders -> lista ordini
+	MODEL order
+	CRUD ordini
+	order/create
+	order/detail/:id
+	order/update/:id
+	order/delete/:id
+stocks -> lista giacenze dei clienti
+	MODEL stock
+	CRUD giacenze clienti
+	stock/create
+	stock/detail/:id
+	stock/update/:id
+	stock/delete/:id
+
+
+wharehouse
+	pagina con situazione magazzino, lista giacenze magazzino
+	CRUD giacenze magazzino.
+
+
+MODELS
+
+tutti i nomi delle propriet� in INGLESE
+
+user{
+	_id : UUID
+	username : string
+	password : string
+	mail : string
+}
+
+
+customer {
+	_id : UUID
+	society_name : string
+	iva_cf : string
+	telephone : string
+	mail : string
+	notes: text
+}
+item {
+	_id : UUID
+	CategoryId: UUID
+	ProductId: UUID
+	OrderId: UUID
+}
+
+product {
+	_id: UUID
+	name: STRING
+	CategoryId: UUID
+	description: STRING
+}
+
+item_category {
+	_id : UUID
+	name : string
+	description : text
+	notes: text
+}
+
+Model generico per ordine, a seconda del prodotto order_detail dovr� contenere info diverse...
+
+order {
+	_id : string
+	customer_id : ObjectID(customer)
+	product_id : ObjectID(product)
+	quantity : int number
+	date: date
+	delivery_date : date
+	delivery_id : ObjectID(delivery)
+	status : ObjectID(status)
+	order_detail : ObjectID(orderdetail) <- how to ruin your own life
+}
+stocks {
+}
+
+badges {
+}

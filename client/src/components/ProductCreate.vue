@@ -30,10 +30,10 @@
                 </v-flex>
                 <v-flex xs12 sm6>
                   <v-select
-                    v-bind:products="categories"
+                    v-bind:items="categories"
                     v-model="product.CategoryId"
-                    product-value="_id"
-                    product-text="type"
+                    item-value="_id"
+                    item-text="name"
                     label="Scegli la Categoria"
                     autocomplete>
                   </v-select>

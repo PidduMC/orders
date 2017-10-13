@@ -7,11 +7,19 @@
         </v-flex>
         <v-flex xs12 sm6>
           <v-select
-            v-bind:items="cats"
+            v-bind:items="categories"
             v-model="item.CategoryId"
             item-value="_id"
             item-text="name"
             label="Scegli la Categoria:"
+            autocomplete>
+          </v-select>
+          <v-select
+            v-bind:items="products"
+            v-model="item.ProductId"
+            item-value="_id"
+            item-text="name"
+            label="Scegli il prodotto:"
             autocomplete>
           </v-select>
         </v-flex>
@@ -21,11 +29,12 @@
 </template>
 
 <script>
-// import CategoryService from '@/services/CategoryService'
+import ProductService from '@/services/ProductService'
 
 export default {
   props: [
-    'cats'
+    'categories',
+    'prods'
   ],
   data () {
     return {
@@ -35,11 +44,19 @@ export default {
         ProductId: null,
         Category: {}
       },
-      categories: []
+      products: []
     }
   },
-  async mounted () {
-    this.categories = this.props.cats
+  watch: {
+    'item.CategoryId': {
+      async handler (val) {
+        console.log('test')
+        console.log(this.item.CategoryId)
+        this.item.ProductId = null
+        this.products = (await ProductService.getByCategoryId(this.item.CategoryId)).data
+        console.log(this.products)
+      }
+    }
   }
 }
 </script>

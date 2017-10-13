@@ -17,7 +17,13 @@
         </v-flex>
       </v-layout>
     </v-container>
-    <itemform cats={{categories}}></itemform>
+    <v-flex xs12 sm6>
+      <v-subheader v-text="'Items...'"></v-subheader>
+    </v-flex>
+    <v-btn @click="additem">+</v-btn>
+    <li v-for="item in itemforms">
+      <itemform v-bind:categories="categories"></itemform>
+    </li>
     <v-layout row wrap>
       <v-flex md12 lg8 class="hidden-xs-only">
         <v-date-picker v-model="order.date" landscape dark locale="it-IT"></v-date-picker>
@@ -35,8 +41,6 @@
         </v-radio-group>
       </v-layout>
     </v-container>
-    <v-btn @click="create" :class="{ green: valid, red: !valid }">submit</v-btn>
-    <v-btn @click="clear">clear</v-btn>
     <p>{{error}}</p>
   </v-form>
 </template>
@@ -53,7 +57,8 @@ export default {
       messagetochild: 'ciao',
       valid: false,
       customers: [],
-      items: {},
+      items: [],
+      itemforms: [],
       categories: [],
       order: {
         CustomerId: null,
@@ -73,6 +78,9 @@ export default {
   },
   methods: {
     async additem () {
+      console.log('pushing itemforms')
+      this.itemforms.push('item')
+      console.log(this.itemforms)
     }
   },
   async mounted () {
