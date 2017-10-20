@@ -17,13 +17,8 @@
         </v-flex>
       </v-layout>
     </v-container>
-    <v-flex xs12 sm6>
-      <v-subheader v-text="'Items...'"></v-subheader>
-    </v-flex>
-    <v-btn @click="additem">+</v-btn>
-    <li v-for="item in itemforms">
-      <itemform v-bind:categories="categories"></itemform>
-    </li>
+    <productselectform v-bind:categories="categories" @additem="addItemToitemlist"></productselectform>
+    <itemlist v-bind:itemlist="itemlist" ></itemlist>
     <v-layout row wrap>
       <v-flex md12 lg8 class="hidden-xs-only">
         <v-date-picker v-model="order.date" landscape dark locale="it-IT"></v-date-picker>
@@ -48,19 +43,19 @@
 <script>
 import CustomerService from '@/services/CustomerService'
 import CategoryService from '@/services/CategoryService'
-import ItemService from '@/services/ItemService'
-import itemform from '@/components/ItemForm'
+// import ItemService from '@/services/ItemService'
+import productselectform from '@/components/ProductSelectForm'
+import itemlist from '@/components/ItemList'
 
 export default {
   data () {
     return {
-      messagetochild: 'ciao',
       valid: false,
       customers: [],
-      items: [],
-      itemforms: [],
+      itemlist: [],
       categories: [],
       order: {
+        _id: null,
         CustomerId: null,
         ItemId: null,
         quantity: 0,
@@ -74,19 +69,18 @@ export default {
     }
   },
   components: {
-    itemform
+    productselectform,
+    itemlist
   },
   methods: {
-    async additem () {
-      console.log('pushing itemforms')
-      this.itemforms.push('item')
-      console.log(this.itemforms)
+    async addItemToitemlist (item) {
+      this.itemlist.push(item)
     }
   },
   async mounted () {
     try {
       this.customers = (await CustomerService.index()).data
-      this.items = (await ItemService.index()).data
+      // this.itemslist = (await ItemService.index()).data
       this.categories = (await CategoryService.index()).data
     } catch (err) {
       this.error = err

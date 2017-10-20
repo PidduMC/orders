@@ -8,9 +8,6 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true
     },
-    quantity: {
-      type: DataTypes.INTEGER
-    },
     delivery_date: {
       type: DataTypes.DATEONLY
     },

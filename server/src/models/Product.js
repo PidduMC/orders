@@ -1,7 +1,7 @@
-//Model for Item
+//Model for Product
 
 module.exports = (sequelize, DataTypes) => {
-  const Item = sequelize.define('Product', {
+  const Product = sequelize.define('Product', {
     _id: {
       type: DataTypes.UUID,
       unique: true,
@@ -16,9 +16,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   })
 
-  Item.associate = function (models) {
-    Item.belongsTo(models.Category)
+  Product.associate = function (models) {
+    Product.belongsTo(models.Category)
   }
 
-  return Item
+  return Product
 }

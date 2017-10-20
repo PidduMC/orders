@@ -8,6 +8,12 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true
     },
+    quantity: {
+      type: DataTypes.INTEGER
+    },
+    metadata: {
+      type: DataTypes.TEXT
+    }
   })
 
   Item.associate = function (models) {

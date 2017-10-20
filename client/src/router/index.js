@@ -19,7 +19,6 @@ import CategoryDelete from '@/components/CategoryDelete'
 import CategoryEdit from '@/components/CategoryEdit'
 import Items from '@/components/Items'
 import ItemCreate from '@/components/ItemCreate'
-import ItemDetail from '@/components/ItemDetail'
 import ItemDelete from '@/components/ItemDelete'
 import ItemEdit from '@/components/ItemEdit'
 import Products from '@/components/Products'
@@ -126,11 +125,6 @@ export default new Router({
       path: '/items/create',
       name: 'itemcreate',
       component: ItemCreate
-    },
-    {
-      path: '/items/detail/:itemId',
-      name: 'itemdetail',
-      component: ItemDetail
     },
     {
       path: '/items/delete/:itemId',

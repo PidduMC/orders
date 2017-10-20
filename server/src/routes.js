@@ -6,6 +6,7 @@ const OrderController = require('./controllers/OrderController')
 const CategoryController = require ('./controllers/CategoryController')
 const ItemController = require('./controllers/ItemController')
 const ProductController = require('./controllers/ProductController')
+const CustomComponentController = require('./controllers/CustomComponentController')
 
 module.exports = (app) => {
   app.post('/register',
@@ -76,6 +77,10 @@ module.exports = (app) => {
             ProductController.put),
    app.get('/products/getByCategoryId/:categoryId',
             ProductController.getByCategoryId)
+
+  //CustomComponent
+  app.get('/customcomponents/getByProductId/:productId',
+           CustomComponentController.getByProductId)
 
 
 }

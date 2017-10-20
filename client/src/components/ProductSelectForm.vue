@@ -22,6 +22,7 @@
             label="Scegli il prodotto:"
             autocomplete>
           </v-select>
+          <v-btn @click="additem">+</v-btn>
         </v-flex>
       </v-layout>
     </v-container>
@@ -42,7 +43,7 @@ export default {
       item: {
         CategoryId: null,
         ProductId: null,
-        Category: {}
+        quantity: 0
       },
       products: []
     }
@@ -50,12 +51,25 @@ export default {
   watch: {
     'item.CategoryId': {
       async handler (val) {
-        console.log('test')
-        console.log(this.item.CategoryId)
         this.item.ProductId = null
         this.products = (await ProductService.getByCategoryId(this.item.CategoryId)).data
-        console.log(this.products)
       }
+    }
+  },
+  methods: {
+    additem: function () {
+      var item = {
+        CategoryId: this.item.CategoryId,
+        ProductId: this.item.ProductId
+      }
+      if (item.CategoryId != null && item.ProductId != null) {
+        this.$emit('additem', item)
+        this.clear()
+      }
+    },
+    clear: function () {
+      this.item.CategoryId = null
+      this.item.ProductId = null
     }
   }
 }
