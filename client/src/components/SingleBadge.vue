@@ -7,22 +7,24 @@
       <v-container fluid>
         <v-layout row wrap>
           <v-flex xs12>
-            <v-text-field label="Nome"></v-text-field>
-            <v-text-field label="Cognome"></v-text-field>
+            <v-text-field label="Nome" v-model="badge.name"></v-text-field>
+            <v-text-field label="Cognome" v-model="badge.surname"></v-text-field>
           </v-flex>
           <v-flex xs12 sm6>
             <v-select
               label="Tipo"
+              v-model="badge.type"
               autocomplete
-              :items="badge.type"
+              :items="types"
             ></v-select>
             </v-flex>
           </v-flex>
           <v-flex xs12 sm6>
             <v-select
               label="Codifica"
+              v-model="badge.codec"
               autocomplete
-              :items="badge.codex"
+              :items="codecs"
             ></v-select>
           </v-flex>
           </v-layout>
@@ -43,24 +45,27 @@ export default {
   ],
   data () {
     return {
+      codecs: ['Z13', 'K20', 'HEX', 'BM10'],
+      types: ['rfid', 'mag', 'mi-fare', 'doppia tec.'],
       badge: {
         number: null,
         name: null,
         surname: null,
         blackwhite: null,
         frontback: null,
-        type: ['rfid', 'mag', 'mi-fare', 'doppia tec.'],
-        codex: ['Z13', 'K20', 'HEX', 'BM10']
+        type: null,
+        codec: null
 
       }
     }
   },
   watch: {
     'badge': {
-      async handler (val) {
+      handler: function (newVal, oldVal) {
         console.log('item changing...')
         this.$emit('itemchanged', this.badge, this.index)
-      }
+      },
+      deep: true
     }
   }
 }

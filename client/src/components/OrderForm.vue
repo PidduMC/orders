@@ -18,7 +18,7 @@
       </v-layout>
     </v-container>
     <productselectform v-bind:categories="categories" @additem="addItemToitemlist"></productselectform>
-    <itemlist v-bind:itemlist="itemlist" ></itemlist>
+    <itemlist v-bind:itemlist="itemlist" @closedItemDialog="saveItemIntoArray"></itemlist>
     <v-layout row wrap>
       <v-flex md12 lg8 class="hidden-xs-only">
         <v-date-picker v-model="order.date" landscape dark locale="it-IT"></v-date-picker>
@@ -75,6 +75,10 @@ export default {
   methods: {
     async addItemToitemlist (item) {
       this.itemlist.push(item)
+    },
+    saveItemIntoArray (jsonitem, index) {
+      // this.itemlist[index].metadata = jsonitem
+      console.log(this.itemlist)
     }
   },
   async mounted () {

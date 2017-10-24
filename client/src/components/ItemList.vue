@@ -14,7 +14,7 @@
                  @click="itemclicked(index)">
             </img>
           </v-flex>
-          <customcomponentdialog v-bind:ccname="ccname" v-bind:index="index" v-bind:item="itemlist[index]" v-bind:show="dialog" @closeDialog='closeDialog' @itemchanged='changeItemData'></customcomponentdialog>
+          <customcomponentdialog v-bind:ccname="ccname" v-bind:index="index" v-bind:item="itemlist[index]" v-bind:show="dialog" @closeDialog='closeDialog' ></customcomponentdialog>
         </v-layout>
       </v-container>
     </v-card>
@@ -49,18 +49,15 @@ export default {
   methods: {
     async itemclicked (index) {
       console.log('dialog state' + this.dialog)
-      this.dialog = true
       this.item = this.items[index]
       this.index = index
+      this.dialog = true
       console.log('from click ' + this.dialog + ' ' + this.item + ' ' + this.index)
       // this.$emit('itemclicked', this.index, this.ccname, this.item)
     },
-    async changeItemData (item, index) {
-      console.log('ggggg')
-      this.items[index] = item
-    },
-    closeDialog () {
+    closeDialog (jsonitem, index) {
       this.dialog = false
+      this.$emit('closedItemDialog', jsonitem, index)
     }
   }
 }

@@ -43,7 +43,9 @@ export default {
       item: {
         CategoryId: null,
         ProductId: null,
-        quantity: 0
+        OrderId: null,
+        quantity: 0,
+        metadata: ''
       },
       products: []
     }

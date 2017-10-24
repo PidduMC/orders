@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="displayed" persistent>
     <v-card>
-      <component :is="compname" v-bind:index='index' v-bind:item='item'></component>
+      <component :is="compname" v-bind:index='index' v-bind:item='item' @itemchanged='changeItemData'></component>
       <v-btn class="cyan" @click="closeDialog">Chiudi</v-btn>
     </v-card>
   </v-dialog>
@@ -57,6 +57,11 @@ export default {
     closeDialog () {
       this.$emit('closeDialog')
       console.log('dialog closed')
+    },
+    changeItemData (item, index) {
+      const jsonitem = JSON.parse(JSON.stringify(item))
+      console.log(jsonitem)
+      console.log('gggg ' + index)
     }
   }
 }
