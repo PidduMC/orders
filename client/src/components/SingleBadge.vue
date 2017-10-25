@@ -55,7 +55,6 @@ export default {
         frontback: null,
         type: null,
         codec: null
-
       }
     }
   },

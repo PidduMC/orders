@@ -45,7 +45,7 @@ export default {
         ProductId: null,
         OrderId: null,
         quantity: 0,
-        metadata: ''
+        metadata: {}
       },
       products: []
     }

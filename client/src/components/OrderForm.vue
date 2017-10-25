@@ -28,10 +28,8 @@
       <v-layout row wrap>
         <v-subheader v-text="'Consegna: '"></v-subheader>
         <v-radio-group v-model="order.delivert_type" row>
-          <v-flex xs12>
-            <v-radio label= "Corriere Cliente" value="CorriereCliente"></v-radio>
-            <v-radio label= "Spedizione" value="Spedizione"></v-radio>
-            <v-radio label= "Rimessa Diretta" value="RD"></v-radio>
+          <v-flex xs12 v-for="(type, index) in order.delivery_type">
+            <v-radio label="{{order.delivery_type[index]}}" value="{{order.delivery_type[index]}}"></v-radio>
           </v-flex>
         </v-radio-group>
       </v-layout>
@@ -58,11 +56,10 @@ export default {
         _id: null,
         CustomerId: null,
         ItemId: null,
-        quantity: 0,
         delivery_date: null,
-        delivery_type: null,
+        delivery_types: ['RD','CorriereCliente','Spedizione'],
         date: null,
-        status: null
+        states: ['creato', 'lavorazione', 'pronto', 'spedito']
       },
       selectedCategoryId: null,
       error: ''
